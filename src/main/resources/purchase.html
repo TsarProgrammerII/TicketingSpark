@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Ticket</title>
+</head>
+<body>
+    <!-- Payment Information Form (Placeholder) -->
+    <h1>Purchase tickets for ${eventName}</h1>
+    <form action="/confirmPurchase" method="post">
+        <label for="creditCard">Credit Card:</label>
+        <input type="text" id="creditCard" name="creditCard" required><br>
+        <!-- Add other payment fields as needed -->
+        <label for="ticketQuantity">Number of Tickets:</label>
+        <input type="number" id="ticketQuantity" name="ticketQuantity" required min="1">
+
+        <input type="hidden" name="eventName" value="${eventName}">
+        <button type="submit">Confirm Purchase</button>
+    </form>
+
+    <form action="/home" method="get">
+        <button type="submit">Return to Home</button>
+    </form>
+</body>
+</html>

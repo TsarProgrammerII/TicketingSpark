@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>CofC Ticketing System</h1>
+    
+    <!-- Search Bar -->
+    <form action="/search" method="post">
+        <label for="eventName">Search for an event:</label>
+        <input type="text" id="eventName" name="eventName" required>
+        <button type="submit">Search</button>
+    </form>
+
+     <!-- Display Search Results -->
+     <div id="searchResults"></div>
+
+     <div id="allEvents"></div>
+    <!-- Log Out Button -->
+    <form action="/logout" method="post">
+        <button type="submit">Log Out</button>
+    </form>
+
+</body>
+</html>

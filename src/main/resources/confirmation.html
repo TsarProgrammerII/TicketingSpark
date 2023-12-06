@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation and Receipt</title>
+</head>
+<body>
+    <h1>Thank you for your purchase!</h1>
+    <p>Username: ${username}</p>
+    <p>Event: ${eventName}</p>
+    <p>Tickets Purchased: ${ticketAmount}</p>
+    <p>Total Cost: ${totalCost}</p>
+    <p>Purchase Date: ${purchaseDate}</p>
+
+    <form action="/home" method="get">
+        <button type="submit">Return to Home</button>
+    </form>
+</body>
+</html>
