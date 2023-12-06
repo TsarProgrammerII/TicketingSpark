@@ -54,16 +54,16 @@ public class App {
         });
 
         get("/home", (req, res) -> {
-            // Fetch all events with links from the database
+            
             Map<String, String> allEvents = getAllEvents();
         
-            // Render the home page with the list of events and links
+            
             res.type("text/html");
             try {
                 FileInputStream fis = new FileInputStream("src/main/resources/home.html");
                 String homePage = new String(fis.readAllBytes(), StandardCharsets.UTF_8);
         
-                // Create an HTML list of events with links
+                
                 StringBuilder eventsListHtml = new StringBuilder("<ul>");
                 for (Map.Entry<String, String> entry : allEvents.entrySet()) {
                     eventsListHtml.append("<li><a href=\"").append(entry.getValue()).append("\">")
@@ -71,7 +71,7 @@ public class App {
                 }
                 eventsListHtml.append("</ul>");
         
-                // Replace a placeholder in the home page with the events list
+                
                 homePage = homePage.replace("<div id=\"allEvents\"></div>", eventsListHtml.toString());
         
                 return homePage;
@@ -84,11 +84,11 @@ public class App {
         get("/event", (req, res) -> {
             String eventName = req.queryParams("eventName");
         
-            // Fetch event details from the database (you need to implement this)
+            
             String eventDescription = getEventDescription(eventName);
             String eventPrice = getEventPrice(eventName);
         
-            // Render the event details page
+            
             res.type("text/html");
             try (FileInputStream fis = new FileInputStream("src/main/resources/eventDetails.html")) {
                 String eventDetailsPage = new String(fis.readAllBytes(), StandardCharsets.UTF_8);
@@ -105,7 +105,6 @@ public class App {
         post("/purchase", (req, res) -> {
             String eventName = req.queryParams("eventName");
         
-            // Render the purchase page
             res.type("text/html");
             try (FileInputStream fis = new FileInputStream("src/main/resources/purchase.html")) {
                 String purchasePage = new String(fis.readAllBytes(), StandardCharsets.UTF_8);
@@ -129,18 +128,15 @@ public class App {
                 username = req.session().attribute("username");
             }
         
-            // Process payment information (placeholder)
             String creditCard = req.queryParams("creditCard");
-            // Add other payment processing logic as needed
+            
             int ticketQuantity = Integer.parseInt(req.queryParams("ticketQuantity"));
         
-            // Update ticket availability in the database (you need to implement this)
             System.out.println("Does it even make it to Here?");
             int cost = processPurchase(eventName, ticketQuantity);
             String totalCost = "" + cost;
             System.out.println("Is it still working??");
         
-            // Render the confirmation and receipt page
             res.type("text/html");
             try  {
                 FileInputStream fis = new FileInputStream("src/main/resources/confirmation.html");
@@ -172,7 +168,6 @@ public class App {
                 res.redirect("/home");
                 return "Successful login";
             } else {
-                // Display error message
                 return "Invalid login. Please try again.";
             }
         });
@@ -185,11 +180,9 @@ public class App {
             boolean isUserAdded = addUser(email, signupUsername, signupPassword);
     
             if (isUserAdded) {
-                // Redirect to home page or display success message
                 res.redirect("/home");
                 return "Success!";
             } else {
-                // Display error message
                 return "Error creating user. Please try again.";
             }
         });
@@ -207,14 +200,12 @@ public class App {
 
                 List<String> searchResults = searchEvents(eventName);
 
-                // Build HTML dynamically based on search results
                 StringBuilder resultHtml = new StringBuilder("<h2>Search Results:</h2><ul>");
                 for (String result : searchResults) {
                     resultHtml.append("<li><a href='/event?eventName=").append(result).append("'>").append(result).append("</a></li>");
                 }
                 resultHtml.append("</ul>");
 
-                // Inject the search results into the HTML
                 String homePageHtml = new String(Files.readAllBytes(Paths.get("src/main/resources/home.html")), StandardCharsets.UTF_8);
                 homePageHtml = homePageHtml.replace("<div id=\"searchResults\"></div>", resultHtml.toString());
 
@@ -239,7 +230,6 @@ public class App {
         Firestore db = FirestoreClient.getFirestore();
         Map<String, String> allEvents = new HashMap<>();
         try {
-            // Fetch all events from the Events collection
             QuerySnapshot querySnapshot = db.collection("Events").get().get();
     
             for (QueryDocumentSnapshot document : querySnapshot) {
@@ -292,23 +282,20 @@ public class App {
         private static boolean addUser(String email, String username, String password) {
             Firestore db = FirestoreClient.getFirestore();
             try {
-                // Check if the user already exists
                 QuerySnapshot existingUsers = db.collection("Users")
                         .whereEqualTo("Username", username)
                         .get()
                         .get();
     
                 if (!existingUsers.isEmpty()) {
-                    return false; // User already exists
+                    return false; 
                 }
     
-                // Create a new user document
                 Map<String, Object> newUser = new HashMap<>();
                 newUser.put("Email", email);
                 newUser.put("Username", username);
                 newUser.put("Password", password);
     
-                // Add the new user document to the "Users" collection
                 db.collection("Users").add(newUser);
                 return true;
             } catch (InterruptedException | ExecutionException e) {
@@ -321,7 +308,6 @@ public class App {
             Firestore db = FirestoreClient.getFirestore();
             List<String> searchResults = new ArrayList<>();
             try {
-                // Query Firestore to find events with matching names
                 QuerySnapshot querySnapshot = db.collection("Events")
                         .whereEqualTo("EventName", eventName)
                         .get()
@@ -340,10 +326,9 @@ public class App {
         private static String getEventDescription(String eventName) {
             Firestore db = FirestoreClient.getFirestore();
             try {
-                // Fetch the event document
                 QuerySnapshot querySnapshot = db.collection("Events")
                         .whereEqualTo("EventName", eventName)
-                        .limit(1)  // Limit to one result since event names should be unique
+                        .limit(1) 
                         .get()
                         .get();
         
@@ -361,10 +346,9 @@ public class App {
         private static String getEventPrice(String eventName) {
             Firestore db = FirestoreClient.getFirestore();
             try {
-                // Fetch the event document
                 QuerySnapshot querySnapshot = db.collection("Events")
                         .whereEqualTo("EventName", eventName)
-                        .limit(1)  // Limit to one result since event names should be unique
+                        .limit(1) 
                         .get()
                         .get();
         
@@ -380,7 +364,6 @@ public class App {
 
                     return ticketPrice + "";
                 } else {
-                    // Event not found
                     throw new RuntimeException("Event not found");
                 }
             } catch (InterruptedException | ExecutionException e) {
@@ -394,46 +377,36 @@ public class App {
         private static int processPurchase(String eventName, int ticketQuantity) {
             Firestore db = FirestoreClient.getFirestore();
             try {
-                // Query Firestore to find events with matching names
                 QuerySnapshot querySnapshot = db.collection("Events")
                         .whereEqualTo("EventName", eventName)
                         .get()
                         .get();
         
-                // Check if any documents match the query
                 if (!querySnapshot.isEmpty()) {
-                    // Assuming there's only one document for the given event name
                     System.out.println(querySnapshot);
                     QueryDocumentSnapshot eventDocument = querySnapshot.getDocuments().get(0);
                     
                     System.out.println("It's gonna break");
-                    // Assuming TicketReference is a field in the Events collection
                     
                     
                     System.out.println("It's gonna break");
                     DocumentReference ticketReference = (DocumentReference)eventDocument.get("Event");
                     System.out.println("It's gonna break");
         
-                    // Fetch the ticket document using the reference
                     DocumentSnapshot ticketDocument = ticketReference.get().get();
                     System.out.println("It's gonna break");
         
-                    // Get the current ticket amount
                     int currentTicketAmount = ticketDocument.getLong("TicketAmount").intValue();
                     int ticketPrice = ticketDocument.getLong("TicketPrice").intValue();
                     System.out.println("It's gonna break soon");
         
-                    // Check ticket availability
                     if (currentTicketAmount >= ticketQuantity) {
-                        // Update ticket availability without using a transaction
                         ticketReference.update("TicketAmount", currentTicketAmount - ticketQuantity);
                         return ticketQuantity*ticketPrice;
                     } else {
-                        // No more tickets available
                         throw new RuntimeException("No more tickets available for this event");
                     }
                 } else {
-                    // Event not found
                     throw new RuntimeException("Event not found");
                 }
             } catch (InterruptedException | ExecutionException e) {
