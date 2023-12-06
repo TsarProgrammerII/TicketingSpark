@@ -5,24 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
-<body>
-    <form action="/login" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
-        <button type="submit">Login</button>
-    </form>
+<bod style="font-family: 'Arial', sans-serif; background-color: #f2f2f2; text-align: center; padding: 20px;">
+    <h1 style="color: #333;">Welcome to CofC Ticketing System</h1>
+    <form action="/login" method="post" style="max-width: 300px; margin: 0 auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+        <label for="username" style="display: block; margin-bottom: 10px; font-size: 16px; color: #555;">Username:</label>
+        <input type="text" id="username" name="username" required style="width: 100%; padding: 10px; box-sizing: border-box; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px;"><br>
+        <label for="password" style="display: block; margin-bottom: 10px; font-size: 16px; color: #555;">Password:</label>
+        <input type="password" id="password" name="password" required style="width: 100%; padding: 10px; box-sizing: border-box; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px;"><br>
+        <button type="submit" style="background-color: #4caf50; color: #fff; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">Login</button>
 
-    <!-- Sign Up Form -->
-    <form action="/signup" method="post">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br>
-        <label for="signupUsername">Username:</label>
-        <input type="text" id="signupUsername" name="signupUsername" required><br>
-        <label for="signupPassword">Password:</label>
-        <input type="password" id="signupPassword" name="signupPassword" required><br>
-        <button type="submit">Sign Up</button>
+        <a href="/signIn" style="text-decoration: none;">
+            <button type="button" style="background-color: #008CBA; color: #fff; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">Sign Up</button>
+        </a>
     </form>
 </body>
 </html>

@@ -49,6 +49,10 @@ public class App {
             return new FileInputStream("src/main/resources/login.html");
         });
 
+        get("/signIn", (req, res) -> {
+            return new FileInputStream("src/main/resources/signIn.html");
+        });
+
         get("/home", (req, res) -> {
             // Fetch all events with links from the database
             Map<String, String> allEvents = getAllEvents();

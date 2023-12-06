@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/main/resources/Style.css">
     <title>Home</title>
 </head>
-<body>
-    <h1>CofC Ticketing System</h1>
+<body >
+    <h1 style="font-size: 2rem; font-weight: bold; color: #1E40AF; margin-bottom: 1rem;">CofC Ticketing System</h1>
     
     <!-- Search Bar -->
-    <form action="/search" method="post">
-        <label for="eventName">Search for an event:</label>
-        <input type="text" id="eventName" name="eventName" required>
-        <button type="submit">Search</button>
+    <form action="/search" method="post" style="margin-bottom: 1rem;">
+        <label for="eventName" style="font-size: 1rem; font-weight: medium; color: #374151;">Search for an event:</label>
+        <input type="text" id="eventName" name="eventName" required style="margin-top: 0.25rem; padding: 0.5rem; border: 1px solid #E5E7EB; border-radius: 0.25rem; width: 100%; outline: none; box-shadow: 0 0 0 2px #93C5FD;">
+        <button type="submit" style="margin-top: 0.5rem; padding: 0.5rem 1rem; background-color: #3B82F6; color: #FFFFFF; font-weight: bold; border: none; border-radius: 0.25rem; cursor: pointer;">Search</button>
     </form>
 
      <!-- Display Search Results -->
@@ -21,7 +22,7 @@
      <div id="allEvents"></div>
     <!-- Log Out Button -->
     <form action="/logout" method="post">
-        <button type="submit">Log Out</button>
+        <button type="submit" style="background-color: #3B82F6; color: #FFFFFF; font-weight: bold; padding: 0.5rem 1rem; border: none; border-radius: 0.25rem; cursor: pointer;">Log Out</button>
     </form>
 
 </body>
