@@ -4,7 +4,7 @@
 package ticketingspark;
 
 import static spark.Spark.*;
-import spark.ModelAndView;
+
 import spark.*;
 
 import com.google.firebase.auth.*;
@@ -285,12 +285,16 @@ public class App {
 
         private static boolean addUser(String email, String username, String password) {
             Firestore db = FirestoreClient.getFirestore();
+            String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=\\S+$).{15,}$";
+            if (!password.matches(passwordRegex)) { 
+                return false;
+            }
             try {
                 QuerySnapshot existingUsers = db.collection("Users")
                         .whereEqualTo("Username", username)
                         .get()
                         .get();
-    
+
                 if (!existingUsers.isEmpty()) {
                     return false; 
                 }
