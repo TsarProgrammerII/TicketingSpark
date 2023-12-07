@@ -45,6 +45,10 @@ public class App {
 
         staticFiles.externalLocation("src/main/resources");
 
+        get("/", (req, res) -> {
+            return new FileInputStream("src/main/resources/login.html");
+        });
+
         get("/login", (req, res) -> {
             return new FileInputStream("src/main/resources/login.html");
         });
